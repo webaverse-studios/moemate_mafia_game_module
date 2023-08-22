@@ -1,0 +1,29 @@
+{
+  "name": "mafia_game",
+  "title": "Mafia game",
+  "description": "https://en.wikipedia.org/wiki/Mafia_(party_game)",
+  "authors": [
+    {
+      "name": "Vis",
+      "email": "gonnavis@gmail.com",
+      "url": "http://gonnavis.com"
+    }
+  ],
+  "version": "1.0",
+  "compatibility": {
+    "minimum": "0.9.4",
+    "verified": "0.9.4"
+  },
+  "models": [
+    "models/claude.json.hbs"
+  ],
+  "skills": [
+    "skills/start_game.json.hbs"
+  ],
+  "scripts": [
+    "scripts/mafia_game.js"
+  ],
+  "components": [
+    "components/PromptSelector.jsx"
+  ]
+}
