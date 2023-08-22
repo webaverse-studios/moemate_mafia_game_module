@@ -15,7 +15,8 @@
     "verified": "0.9.4"
   },
   "models": [
-    "models/claude.json.hbs"
+    "models/claude.json.hbs",
+    "models/gpt3.5turbo.json.hbs"
   ],
   "skills": [
     "skills/start_game.json.hbs"

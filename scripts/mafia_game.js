@@ -11,6 +11,24 @@ const players = [
 
 async function _handleStartGameSkill(event) {
 
+  const context2 = {
+    messages: [
+      {role: 'user', content: 'hello'},
+    ]
+  }
+  console.log('------ _handleCreateQuestionSkill prompt before await:', context2.messages)
+  const model = window.models.CreateModel('mafia_game:GPT 3.5 Turbo')
+  context2.messages = context2.messages.map(message => JSON.stringify(message))
+  window.models.ApplyContextObject(model, context2);
+  console.log('--- payload module: ', window.models.GetModelWithContext(model))
+  const response = await window.models.CallModel(model);
+  console.log('------ _handleCreateQuestionSkill prompt:', context2.messages)
+  console.log('------ _handleCreateQuestionSkill response:', response)
+
+  window.models.DestroyModel(model);
+  return true;
+
+
   players.forEach((player) => {
     player.isMafia = false;
   })
