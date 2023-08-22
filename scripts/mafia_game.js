@@ -44,10 +44,14 @@ async function _handleStartGameSkill(event) {
 
 // // Xavier
 messages: `\n\nHuman:
+###
 We're playing Mafia Party Game (aka Werewolf Party Game) right now.
 Here are all six players: Abigail, Xavier, Naomi, Vis, Sebastian, Sophia.
 Among them are two Mafias.
-You are Xavier and role-playing as a Mafia.
+Each player is secretly assigned a role aligned with either the Citizen or the Mafia. The mafia eliminates one Citizen per night, and act like innocent Citizen during the day. The Citizens must combine their wits and eliminate the true Mafia before they're outnumbered!
+
+###
+You are Xavier, and role-playing as a Mafia.
 You know the other Mafia is Sophia.
 
 Here are some suggestions for what a player who is assigned the Mafia role could do in a game of Mafia:
