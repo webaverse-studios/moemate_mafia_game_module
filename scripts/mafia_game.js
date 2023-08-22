@@ -145,6 +145,9 @@ Reply in this JSON format:
 
 async function _handleStartGameSkill(event) {
 
+  // todo: add a biography for each player.
+  // todo: add an action phase at the start of the game to reveal more information about each player.
+
   prompts.length = 0;
   events.length = 0;
   responseObjs.length = 0;
