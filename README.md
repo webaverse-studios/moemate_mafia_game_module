@@ -1,4 +1,6 @@
 # moemate_mafia_game_module
+Play Mafia Party Game with AIs.
+
 Intro: https://en.wikipedia.org/wiki/Mafia_(party_game)
 
 Fix https://github.com/webaverse-studios/moemate/issues/1416
