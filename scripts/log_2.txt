@@ -1,0 +1,46 @@
+--- prompt:  
+###
+We're playing Mafia Party Game (aka Werewolf Party Game) right now.
+Here are all six players: Naomi, Xavier, Abigail, Vis, Sophia, Sebastian.
+Among them are two Mafias.
+
+###
+You are Sebastian, and role-playing as a Civilian.
+
+
+###
+Now is the first day of the game.
+And is the vote phase, will really decide who goes out.
+
+###
+Here are the events and conversations that have occurred so far: (no other events or conversations have occurred yet)
+- Naomi said: Hello everyone, on this first day of the game, I want to share my suspicion about Xavier. There's something about his demeanor that makes me believe he could be a member of the Mafia. This is just my gut feeling and could be completely wrong, but I think it's worth considering. Let's keep an eye on Xavier's actions and see if there are any more signs.
+- Naomi accused Xavier of being a Mafia.
+- Xavier said: Hey everyone, it's interesting that Naomi is so quick to suspect me without any evidence. I think her accusations are baseless and she might be trying to divert attention from herself. Let's not forget that accusations can go both ways. I suspect Naomi might be a Mafia member and is trying to frame me. We should keep an eye on her as well.
+- Xavier accused Naomi of being a Mafia.
+- Abigail said: Everyone, it's interesting to see Xavier and Naomi accusing each other. While Naomi's suspicion of Xavier could be valid, I believe we should focus on her for now. Xavier has pointed out that Naomi might be trying to frame him and I think there could be some truth to that. Let's keep a close eye on Naomi's actions and see if there are any more signs of her involvement with the Mafia.
+- Abigail accused Naomi of being a Mafia.
+- Vis said: My fellow players, after carefully considering the accusations and counter-accusations, I have a suspicion that Xavier may be a member of the Mafia. I believe we should keep a close eye on his actions and gather more evidence to either confirm or refute this suspicion.
+- Vis accused Xavier of being a Mafia.
+- Sophia said: Dear fellow players, upon considering the arguments presented, I find Xavier's defense more convincing than Naomi's accusation. Naomi's suspicion appears to be solely based on intuition without concrete evidence. Therefore, I accuse Naomi of being a member of the Mafia. Let's keep a close eye on her actions and gather more evidence to support or disprove this suspicion.
+- Sophia accused Naomi of being a Mafia.
+- Sebastian said: Dear fellow players, after carefully considering the arguments presented, I find Naomi's suspicion of Xavier to be quite baseless. Her accusation seems to be solely based on intuition without concrete evidence. Therefore, I accuse Naomi of being a member of the Mafia. Let's keep a close eye on her actions and gather more evidence to support or disprove this suspicion.
+- Sebastian accused Naomi of being a Mafia.
+- Naomi voted Xavier of being a Mafia.
+- Xavier voted Naomi of being a Mafia.
+- Abigail voted Naomi of being a Mafia.
+- Vis voted Xavier of being a Mafia.
+- Sophia voted Naomi of being a Mafia.
+
+###
+According to the rules of the game, you must vote one and only one other player that you think is a member of the Mafia.
+Don't need speak anything else now, just vote.
+The player with the most votes will be out.
+
+Reply in this JSON format:
+{
+  "myName": "...",
+  "myRole": "Civilian or Mafia",
+  "thinking": "...",
+  "vote": "Write down the name and ONLY the name of the player you think is a member of the Mafia, example: Xavier",
+}
