@@ -11,22 +11,22 @@ const players = [
 
 async function _handleStartGameSkill(event) {
 
-  const context2 = {
-    messages: [
-      {role: 'user', content: 'hello'},
-    ]
-  }
-  console.log('------ _handleCreateQuestionSkill prompt before await:', context2.messages)
-  const model = window.models.CreateModel('mafia_game:GPT 3.5 Turbo')
-  context2.messages = context2.messages.map(message => JSON.stringify(message))
-  window.models.ApplyContextObject(model, context2);
-  console.log('--- payload module: ', window.models.GetModelWithContext(model))
-  const response = await window.models.CallModel(model);
-  console.log('------ _handleCreateQuestionSkill prompt:', context2.messages)
-  console.log('------ _handleCreateQuestionSkill response:', response)
+  // const context2 = {
+  //   messages: [
+  //     {role: 'user', content: 'hello'},
+  //   ]
+  // }
+  // console.log('------ _handleCreateQuestionSkill prompt before await:', context2.messages)
+  // const model = window.models.CreateModel('mafia_game:GPT 3.5 Turbo')
+  // context2.messages = context2.messages.map(message => JSON.stringify(message))
+  // window.models.ApplyContextObject(model, context2);
+  // console.log('--- payload module: ', window.models.GetModelWithContext(model))
+  // const response = await window.models.CallModel(model);
+  // console.log('------ _handleCreateQuestionSkill prompt:', context2.messages)
+  // console.log('------ _handleCreateQuestionSkill response:', response)
 
-  window.models.DestroyModel(model);
-  return true;
+  // window.models.DestroyModel(model);
+  // return true;
 
 
   players.forEach((player) => {
@@ -61,7 +61,7 @@ async function _handleStartGameSkill(event) {
 
 
 // // Xavier
-messages: `\n\nHuman:
+messages: [{role: 'user', content: `
 ###
 We're playing Mafia Party Game (aka Werewolf Party Game) right now.
 Here are all six players: Abigail, Xavier, Naomi, Vis, Sebastian, Sophia.
@@ -100,11 +100,10 @@ Reply in this JSON format:
   "myName": "...",
   "myRole": "Civilian or Mafia",
   "thinking": "...",
-  "accusation": "Write down the name and Only the name of the player you think is a member of the Mafia",
-  "speaking": "Write down what you want to speak to all the players, must inlcude your accusation."
+  "accusation": "Write down the name and ONLY the name of the player you think is a member of the Mafia, example: Xavier",
+  "speaking": "Write down what you want to speak to all the players, must include your accusation."
 }
-
-Assistant:`
+`}]
 /*
   {
     "myName": "Xavier",
@@ -158,6 +157,17 @@ Assistant:`
 
   }
   console.log('--- context: ', context);
+
+  console.log('------ _handleCreateQuestionSkill prompt before await:', context.messages)
+  const model = window.models.CreateModel('mafia_game:GPT 3.5 Turbo')
+  context.messages = context.messages.map(message => JSON.stringify(message))
+  window.models.ApplyContextObject(model, context);
+  console.log('--- payload module: ', window.models.GetModelWithContext(model))
+  const response = await window.models.CallModel(model);
+  console.log('------ _handleCreateQuestionSkill prompt:', context.messages)
+  console.log('------ _handleCreateQuestionSkill response:', response)
+  const responseJsonObj = JSON.parse(response.choices[0].message.content)
+  console.log('------ _handleCreateQuestionSkill response JSON obj:', responseJsonObj)
 
   const isStop = true;
   return isStop;
