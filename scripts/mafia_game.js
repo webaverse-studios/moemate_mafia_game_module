@@ -25,6 +25,8 @@ window.events = events;
 const responseObjs = [];
 window.responseObjs = responseObjs;
 
+let seenPlayer = null; // todo: seenPlayers
+
 async function speak(player) {
 
   const anotherMafia = players.filter((p) => (p.role === 'Mafia' && p !== player))[0];
@@ -39,18 +41,20 @@ Among them are two Mafias.
 
 ###
 You are ${player.name}, and role-playing as a ${player.role}.
-${player.role === 'Mafia' ? 'You know another Mafia is ' + anotherMafia.name + '.' : ''}
+${player.role === 'Mafia' ? `You know another Mafia is ${anotherMafia.name}.` : ''}
+${player.isSeer ? `As a Seer, you have seen another player ${seenPlayer.name} is a ${seenPlayer.role}.` : ''}
 
 ### Your Goal:
 In the Mafia party game, there are two factions: Mafia and Civilian. Players in each faction need to help each other, eliminate players from the other faction, and maintain the number advantage of your own faction.
+Seer belong to the Civilian faction, and can choose a player and see his/her role before each round.
 
 ${player.role === 'Civilian' ? `In the Mafia party game, the goal of the Civilians is to identify and eliminate all the Mafia members while preserving the innocence of their fellow Civilians. 
 
-The Civilians do not know the identities of the Mafia members or other roles at the beginning of the game. Their main objective is to work together and use deduction, discussion to figure out who among them might be part of the Mafia.
+The Civilians do not know the identities of the Mafia members or other roles at the beginning of the game. Their main objective is to work together and use deduction, discussion, and sometimes special roles' abilities to figure out who among them might be part of the Mafia.
 
 During the daytime phases, Civilians participate in discussions, share their suspicions, and attempt to collectively decide who they believe is a member of the Mafia. This is done through a democratic voting process, where players can vote to eliminate a player they suspect of being Mafia. The player with the most votes is removed from the game and their role is revealed. The goal is to eliminate Mafia members while minimizing the chance of accidentally eliminating innocent Civilians.
 
-At nighttime, when the Mafia members take their actions, the Civilians do not have any active role to play. Instead, they must rely on the information gained from the nighttime actions and the discussions during the daytime to make informed decisions about who to vote for.
+At nighttime, when the Mafia members and other roles with special abilities take their actions, the Civilians do not have any active role to play. Instead, they must rely on the information gained from the nighttime actions and the discussions during the daytime to make informed decisions about who to vote for.
 
 The game continues with alternating phases of discussion and nighttime actions until either the Civilians successfully identify and eliminate all the Mafia members and evil roles, or the Mafia gains a numerical advantage and controls the voting process, making it impossible for the Civilians to win.
 
@@ -58,9 +62,9 @@ In summary, the goal of the Civilians in the Mafia party game is to collaborate,
 ` : ''}
 ${player.role === 'Mafia' ? `In the Mafia party game, the primary goal of the Mafia players is to eliminate all the non-Mafia players (usually referred to as the "Civilian") or to achieve a numerical advantage where they can control the vote and decisions of the remaining players.
 
-The game is typically played with a group of players, each assigned a specific role secretly at the beginning of the game. Among the players, a few are chosen to be part of the Mafia, while the others to be Civilian. The Mafia members know each other's identities, while the Civilians only know their own role.
+The game is typically played with a group of players, each assigned a specific role secretly at the beginning of the game. Among the players, a few are chosen to be part of the Mafia, while the rest take on various roles, such as Civilian, Seer, etc. The Mafia members know each other's identities, while the other players only know their own role.
 
-During the game, players engage in discussions and attempt to identify the Mafia members among them. The Mafia members, posing as regular Civilian, participate in these discussions to divert suspicion away from themselves and manipulate the group's decisions. At night, the Mafia secretly chooses a player to kill.
+During the game, players engage in discussions and attempt to identify the Mafia members among them. The Mafia members, posing as regular Civilian or even as Seer, participate in these discussions to divert suspicion away from themselves and manipulate the group's decisions. At night, the Mafia secretly chooses a player to kill (remove from the game), and other roles with special abilities may take actions as well.
 
 The game continues with alternating phases of daytime discussion and nighttime actions until either the Mafia successfully eliminates all non-Mafia players, or the Civilian manage to identify and eliminate all the Mafia members through a democratic voting process during the day phases.
 
@@ -123,18 +127,20 @@ Among them are two Mafias.
 
 ###
 You are ${player.name}, and role-playing as a ${player.role}.
-${player.role === 'Mafia' ? 'You know another Mafia is ' + anotherMafia.name + '.' : ''}
+${player.role === 'Mafia' ? `You know another Mafia is ${anotherMafia.name}.` : ''}
+${player.isSeer ? `As a Seer, you have seen another player ${seenPlayer.name} is a ${seenPlayer.role}.` : ''}
 
 ### Your Goal:
 In the Mafia party game, there are two factions: Mafia and Civilian. Players in each faction need to help each other, eliminate players from the other faction, and maintain the number advantage of your own faction.
+Seer belong to the Civilian faction, and can choose a player and see his/her role before each round.
 
 ${player.role === 'Civilian' ? `In the Mafia party game, the goal of the Civilians is to identify and eliminate all the Mafia members while preserving the innocence of their fellow Civilians. 
 
-The Civilians do not know the identities of the Mafia members or other roles at the beginning of the game. Their main objective is to work together and use deduction, discussion to figure out who among them might be part of the Mafia.
+The Civilians do not know the identities of the Mafia members or other roles at the beginning of the game. Their main objective is to work together and use deduction, discussion, and sometimes special roles' abilities to figure out who among them might be part of the Mafia.
 
 During the daytime phases, Civilians participate in discussions, share their suspicions, and attempt to collectively decide who they believe is a member of the Mafia. This is done through a democratic voting process, where players can vote to eliminate a player they suspect of being Mafia. The player with the most votes is removed from the game and their role is revealed. The goal is to eliminate Mafia members while minimizing the chance of accidentally eliminating innocent Civilians.
 
-At nighttime, when the Mafia members take their actions, the Civilians do not have any active role to play. Instead, they must rely on the information gained from the nighttime actions and the discussions during the daytime to make informed decisions about who to vote for.
+At nighttime, when the Mafia members and other roles with special abilities take their actions, the Civilians do not have any active role to play. Instead, they must rely on the information gained from the nighttime actions and the discussions during the daytime to make informed decisions about who to vote for.
 
 The game continues with alternating phases of discussion and nighttime actions until either the Civilians successfully identify and eliminate all the Mafia members and evil roles, or the Mafia gains a numerical advantage and controls the voting process, making it impossible for the Civilians to win.
 
@@ -142,9 +148,9 @@ In summary, the goal of the Civilians in the Mafia party game is to collaborate,
 ` : ''}
 ${player.role === 'Mafia' ? `In the Mafia party game, the primary goal of the Mafia players is to eliminate all the non-Mafia players (usually referred to as the "Civilian") or to achieve a numerical advantage where they can control the vote and decisions of the remaining players.
 
-The game is typically played with a group of players, each assigned a specific role secretly at the beginning of the game. Among the players, a few are chosen to be part of the Mafia, while the others to be Civilian. The Mafia members know each other's identities, while the Civilians only know their own role.
+The game is typically played with a group of players, each assigned a specific role secretly at the beginning of the game. Among the players, a few are chosen to be part of the Mafia, while the rest take on various roles, such as Civilian, Seer, etc. The Mafia members know each other's identities, while the other players only know their own role.
 
-During the game, players engage in discussions and attempt to identify the Mafia members among them. The Mafia members, posing as regular Civilian, participate in these discussions to divert suspicion away from themselves and manipulate the group's decisions. At night, the Mafia secretly chooses a player to kill.
+During the game, players engage in discussions and attempt to identify the Mafia members among them. The Mafia members, posing as regular Civilian or even as Seer, participate in these discussions to divert suspicion away from themselves and manipulate the group's decisions. At night, the Mafia secretly chooses a player to kill (remove from the game), and other roles with special abilities may take actions as well.
 
 The game continues with alternating phases of daytime discussion and nighttime actions until either the Mafia successfully eliminates all non-Mafia players, or the Civilian manage to identify and eliminate all the Mafia members through a democratic voting process during the day phases.
 
@@ -207,18 +213,20 @@ Among them are two Mafias.
 
 ###
 You are ${player.name}, and role-playing as a ${player.role}.
-${player.role === 'Mafia' ? 'You know another Mafia is ' + anotherMafia.name + '.' : ''}
+${player.role === 'Mafia' ? `You know another Mafia is ${anotherMafia.name}.` : ''}
+${player.isSeer ? `As a Seer, you have seen another player ${seenPlayer.name} is a ${seenPlayer.role}.` : ''}
 
 ### Your Goal:
 In the Mafia party game, there are two factions: Mafia and Civilian. Players in each faction need to help each other, eliminate players from the other faction, and maintain the number advantage of your own faction.
+Seer belong to the Civilian faction, and can choose a player and see his/her role before each round.
 
 ${player.role === 'Civilian' ? `In the Mafia party game, the goal of the Civilians is to identify and eliminate all the Mafia members while preserving the innocence of their fellow Civilians. 
 
-The Civilians do not know the identities of the Mafia members or other roles at the beginning of the game. Their main objective is to work together and use deduction, discussion to figure out who among them might be part of the Mafia.
+The Civilians do not know the identities of the Mafia members or other roles at the beginning of the game. Their main objective is to work together and use deduction, discussion, and sometimes special roles' abilities to figure out who among them might be part of the Mafia.
 
 During the daytime phases, Civilians participate in discussions, share their suspicions, and attempt to collectively decide who they believe is a member of the Mafia. This is done through a democratic voting process, where players can vote to eliminate a player they suspect of being Mafia. The player with the most votes is removed from the game and their role is revealed. The goal is to eliminate Mafia members while minimizing the chance of accidentally eliminating innocent Civilians.
 
-At nighttime, when the Mafia members take their actions, the Civilians do not have any active role to play. Instead, they must rely on the information gained from the nighttime actions and the discussions during the daytime to make informed decisions about who to vote for.
+At nighttime, when the Mafia members and other roles with special abilities take their actions, the Civilians do not have any active role to play. Instead, they must rely on the information gained from the nighttime actions and the discussions during the daytime to make informed decisions about who to vote for.
 
 The game continues with alternating phases of discussion and nighttime actions until either the Civilians successfully identify and eliminate all the Mafia members and evil roles, or the Mafia gains a numerical advantage and controls the voting process, making it impossible for the Civilians to win.
 
@@ -226,9 +234,9 @@ In summary, the goal of the Civilians in the Mafia party game is to collaborate,
 ` : ''}
 ${player.role === 'Mafia' ? `In the Mafia party game, the primary goal of the Mafia players is to eliminate all the non-Mafia players (usually referred to as the "Civilian") or to achieve a numerical advantage where they can control the vote and decisions of the remaining players.
 
-The game is typically played with a group of players, each assigned a specific role secretly at the beginning of the game. Among the players, a few are chosen to be part of the Mafia, while the others to be Civilian. The Mafia members know each other's identities, while the Civilians only know their own role.
+The game is typically played with a group of players, each assigned a specific role secretly at the beginning of the game. Among the players, a few are chosen to be part of the Mafia, while the rest take on various roles, such as Civilian, Seer, etc. The Mafia members know each other's identities, while the other players only know their own role.
 
-During the game, players engage in discussions and attempt to identify the Mafia members among them. The Mafia members, posing as regular Civilian, participate in these discussions to divert suspicion away from themselves and manipulate the group's decisions. At night, the Mafia secretly chooses a player to kill.
+During the game, players engage in discussions and attempt to identify the Mafia members among them. The Mafia members, posing as regular Civilian or even as Seer, participate in these discussions to divert suspicion away from themselves and manipulate the group's decisions. At night, the Mafia secretly chooses a player to kill (remove from the game), and other roles with special abilities may take actions as well.
 
 The game continues with alternating phases of daytime discussion and nighttime actions until either the Mafia successfully eliminates all non-Mafia players, or the Civilian manage to identify and eliminate all the Mafia members through a democratic voting process during the day phases.
 
@@ -336,12 +344,19 @@ async function _handleStartGameSkill(event) {
     player.role = 'Civilian';
   })
   players.sort(() => 0.5 - Math.random());
-  const selected = players.slice(0, 2);
-  selected.forEach((player) => {
-    player.role = 'Mafia';
-  })
+  const selected = players.slice(0, 3);
+  selected[0].isSeer = true;
+  selected[1].role = 'Mafia';
+  selected[2].role = 'Mafia';
   players.sort(() => 0.5 - Math.random());
   // console.log('--- players: ', players);
+
+  // randomly select a seenPlayer who is not seer
+  const nonSeerPlayers = players.filter((player) => !player.isSeer);
+  const randomIndex = Math.floor(Math.random() * nonSeerPlayers.length);
+  seenPlayer = nonSeerPlayers[randomIndex];
+  
+  console.log('------ players: ', players);
 
   for (let i = 0; i < players.length; i++) {
     const player = players[i];
