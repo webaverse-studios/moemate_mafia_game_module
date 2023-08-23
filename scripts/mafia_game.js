@@ -27,7 +27,7 @@ window.responseObjs = responseObjs;
 
 let seenPlayer = null; // todo: seenPlayers
 
-async function speak(player) {
+async function speak(player, speakTurn) {
 
   const anotherMafia = players.filter((p) => (p.role === 'Mafia' && p !== player))[0];
 
@@ -73,7 +73,7 @@ So, the ultimate goal of the Mafia players is to manipulate the group dynamics, 
 
 ###
 Now is the first day of the game.
-And is the speak phase, which you can say what's on your mind, and who you suspect, but won't really decide who's out.
+And is the ${speakTurn} speak phase, which you can say what's on your mind, and who you suspect, but won't really decide who's out.
 
 ###
 Here are the events and conversations that have occurred so far: (No other events or conversations have occurred yet. If some players are not in the events list, just means that it is not their turn to speak or act, does not mean that they are quiet or silent!)
@@ -360,7 +360,14 @@ async function _handleStartGameSkill(event) {
 
   for (let i = 0; i < players.length; i++) {
     const player = players[i];
-    const responseObj = await speak(player);
+    const responseObj = await speak(player, 'first');
+    events.push(`- ${player.name} said: ${responseObj.speak}`);
+    events.push(`- ${player.name} accused ${responseObj.accuse} of being a Mafia.`);
+  }
+
+  for (let i = 0; i < players.length; i++) {
+    const player = players[i];
+    const responseObj = await speak(player, 'second');
     events.push(`- ${player.name} said: ${responseObj.speak}`);
     events.push(`- ${player.name} accused ${responseObj.accuse} of being a Mafia.`);
   }
