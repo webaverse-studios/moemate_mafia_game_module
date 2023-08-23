@@ -1,6 +1,6 @@
 
 
-const players = [
+let players = [
   {name: 'Abigail'},
   {name: 'Xavier'},
   {name: 'Naomi'},
@@ -42,8 +42,7 @@ You are ${player.name}, and role-playing as a ${player.role}.
 ${player.role === 'Mafia' ? 'You know another Mafia is ' + anotherMafia.name + '.' : ''}
 
 ### Your Goal:
-${player.role === 'Civilian' ? `
-In the Mafia party game, the goal of the Civilians is to identify and eliminate all the Mafia members while preserving the innocence of their fellow Civilians. 
+${player.role === 'Civilian' ? `In the Mafia party game, the goal of the Civilians is to identify and eliminate all the Mafia members while preserving the innocence of their fellow Civilians. 
 
 The Civilians do not know the identities of the Mafia members or other roles at the beginning of the game. Their main objective is to work together and use deduction, discussion to figure out who among them might be part of the Mafia.
 
@@ -55,8 +54,7 @@ The game continues with alternating phases of discussion and nighttime actions u
 
 In summary, the goal of the Civilians in the Mafia party game is to collaborate, discuss, and use deduction to uncover and eliminate the Mafia members from the group, in order to ensure the survival of the innocent and achieve victory for the Civilians.
 ` : ''}
-${player.role === 'Mafia' ? `
-In the Mafia party game, the primary goal of the Mafia players is to eliminate all the non-Mafia players (usually referred to as the "Civilian") or to achieve a numerical advantage where they can control the vote and decisions of the remaining players.
+${player.role === 'Mafia' ? `In the Mafia party game, the primary goal of the Mafia players is to eliminate all the non-Mafia players (usually referred to as the "Civilian") or to achieve a numerical advantage where they can control the vote and decisions of the remaining players.
 
 The game is typically played with a group of players, each assigned a specific role secretly at the beginning of the game. Among the players, a few are chosen to be part of the Mafia, while the others to be Civilian. The Mafia members know each other's identities, while the Civilians only know their own role.
 
@@ -84,7 +82,7 @@ Reply in this JSON format:
   "myName": "...",
   "myRole": "Civilian or Mafia",
   "thinking": "...",
-  "accuse": "Name",
+  "accuse": "Name", // Put ONLY the player's name in the "accuse" field, don't write down anything else!
   "speak": "Write down what you want to speak to all the players, must include your accusation."
 }
 `
@@ -266,6 +264,15 @@ async function _handleStartGameSkill(event) {
   // todo: add a biography for each player.
   // todo: add an action phase at the start of the game to reveal more information about each player.
 
+  // reset
+  players = [
+    {name: 'Abigail'},
+    {name: 'Xavier'},
+    {name: 'Naomi'},
+    {name: 'Sebastian'},
+    {name: 'Sophia'},
+    {name: 'Vis'},
+  ]
   prompts.length = 0;
   events.length = 0;
   responseObjs.length = 0;
