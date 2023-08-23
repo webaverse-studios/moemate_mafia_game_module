@@ -166,7 +166,7 @@ Here are the events and conversations that have occurred so far: (No other event
 ${events.join('\n')}
 
 ###
-According to the rules of the game, you must vote one and only one other player that you think is a member of the Mafia.
+According to the rules of the game, you must vote for one and only one other player that you think needs to be eliminated.
 The player with the most votes will be out.
 You won't speak anything else now, just vote.
 
