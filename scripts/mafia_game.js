@@ -324,8 +324,13 @@ function findMostVotedPlayer(votes) {
 
 async function _handleStartGameSkill(event) {
 
-  // todo: add a biography for each player.
-  // todo: add an action phase at the start of the game to reveal more information about each player.
+  /* todo:
+    - Support more rounds.
+    - Add user input function, currently all AIs are playing.
+    - Add a biography for each player.
+    - Add an action phase at the start of the game to reveal more information about each player.
+    - Add storylines to drive game progression and provide more clues.
+  */
 
   // reset
   players = [
