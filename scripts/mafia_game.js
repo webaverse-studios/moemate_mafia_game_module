@@ -363,18 +363,28 @@ async function _handleStartGameSkill(event) {
   
   console.log('------ players: ', players);
 
+  const companionName = await window.companion.GetCharacterAttribute('name');
+
   for (let i = 0; i < players.length; i++) {
     const player = players[i];
     const responseObj = await speak(player, 'first');
-    events.push(`- ${player.name} said: ${responseObj.speak}`);
-    events.push(`- ${player.name} accused ${responseObj.accuse} of being a Mafia.`);
+    const speakContent = `- ${player.name} said: ${responseObj.speak}`;
+    events.push(speakContent);
+    window.companion.SendMessage({ type: "TEXT", user: companionName, value: speakContent, timestamp: Date.now(), alt: 'alt' });
+    const accuseContent = `- ${player.name} accused ${responseObj.accuse} of being a Mafia.`;
+    events.push(accuseContent);
+    window.companion.SendMessage({ type: "TEXT", user: companionName, value: accuseContent, timestamp: Date.now(), alt: 'alt' });
   }
 
   for (let i = 0; i < players.length; i++) {
     const player = players[i];
     const responseObj = await speak(player, 'second');
-    events.push(`- ${player.name} said: ${responseObj.speak}`);
-    events.push(`- ${player.name} accused ${responseObj.accuse} of being a Mafia.`);
+    const speakContent = `- ${player.name} said: ${responseObj.speak}`;
+    events.push(speakContent);
+    window.companion.SendMessage({ type: "TEXT", user: companionName, value: speakContent, timestamp: Date.now(), alt: 'alt' });
+    const accuseContent = `- ${player.name} accused ${responseObj.accuse} of being a Mafia.`;
+    events.push(accuseContent);
+    window.companion.SendMessage({ type: "TEXT", user: companionName, value: accuseContent, timestamp: Date.now(), alt: 'alt' });
   }
 
   console.log('------ speak ended')
@@ -390,7 +400,9 @@ async function _handleStartGameSkill(event) {
     const player = players[i];
     const responseObj = await vote(player);
     votes.push(responseObj.vote);
-    events.push(`- ${player.name} voted ${responseObj.vote} of being a Mafia.`);
+    const voteContent = `- ${player.name} voted ${responseObj.vote} of being a Mafia.`
+    events.push(voteContent);
+    window.companion.SendMessage({ type: "TEXT", user: companionName, value: voteContent, timestamp: Date.now(), alt: 'alt' });
   }
 
   console.log('------ vote ended')
@@ -413,7 +425,9 @@ async function _handleStartGameSkill(event) {
   })
   console.log('------ players: ', players);
 
-  events.push(`- ${mostVotedPlayer.name} was voted out, and ${mostVotedPlayer.name} was a ${mostVotedPlayer.role}.`);
+  const voteOutContent = `- ${mostVotedPlayer.name} was voted out, and ${mostVotedPlayer.name} was a ${mostVotedPlayer.role}.`;
+  events.push(voteOutContent);
+  window.companion.SendMessage({ type: "TEXT", user: companionName, value: voteOutContent, timestamp: Date.now(), alt: 'alt' });
 
   const voteKills = [];
   window.voteKills = voteKills;
@@ -438,7 +452,9 @@ async function _handleStartGameSkill(event) {
   })
   console.log('------ players: ', players);
 
-  events.push(`- ${mostVotedKilledPlayer.name} was killed by Mafia, and ${mostVotedKilledPlayer.name} was a ${mostVotedKilledPlayer.role}.`);
+  const killContent = `- ${mostVotedKilledPlayer.name} was killed by Mafia, and ${mostVotedKilledPlayer.name} was a ${mostVotedKilledPlayer.role}.`;
+  events.push(killContent);
+  window.companion.SendMessage({ type: "TEXT", user: companionName, value: killContent, timestamp: Date.now(), alt: 'alt' });
 
   console.log('------ kill ended')
   console.log('------ players: ', players);
